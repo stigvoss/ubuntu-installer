@@ -217,7 +217,7 @@ install_discord()
         sudo apt install -y $WORKDIR/discord.deb
     fi
 }
-teamviewer
+
 install_viber()
 {
     if [[ ! $(dpkg -s viber &> /dev/null) ]]; then

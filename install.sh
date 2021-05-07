@@ -62,6 +62,8 @@ init()
         exit
     fi
 
+    sudo hwclock --hctosys 
+
     if [[ -x "$(command -v gnome-shell)" ]]; then
         GDM_VERSION=$(gnome-shell --version)
         GDM_VERSION=${GDM_VERSION:12}

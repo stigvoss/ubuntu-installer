@@ -198,7 +198,7 @@ remove_apt_packages()
 
 install_minecraft()
 {
-    if [[ ! $(dpkg -s minecraft-launcher &> /dev/null) ]]; then
+    if [[ $(dpkg -s minecraft-launcher &> /dev/null) ]]; then
         wget https://launcher.mojang.com/download/Minecraft.deb
         sudo apt install -y $WORKDIR/Minecraft.deb
     fi
@@ -206,7 +206,7 @@ install_minecraft()
 
 install_vscode()
 {
-    if [[ ! $(dpkg -s code &> /dev/null) ]]; then
+    if [[ $(dpkg -s code &> /dev/null) ]]; then
         wget -O vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
         sudo apt install -y $WORKDIR/vscode.deb
     fi
@@ -214,7 +214,7 @@ install_vscode()
 
 install_discord()
 {
-    if [[ ! $(dpkg -s discord &> /dev/null) ]]; then
+    if [[ $(dpkg -s discord &> /dev/null) ]]; then
         wget https://dl.discordapp.net/apps/linux/0.0.14/discord-0.0.14.deb -O discord.deb
         sudo apt install -y $WORKDIR/discord.deb
     fi
@@ -222,7 +222,7 @@ install_discord()
 
 install_viber()
 {
-    if [[ ! $(dpkg -s viber &> /dev/null) ]]; then
+    if [[ $(dpkg -s viber &> /dev/null) ]]; then
         wget https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb
         if [[ $(apt-cache search "^libssl1.0.0$") ]]; then
             sudo apt install -y $WORKDIR/viber.deb
@@ -238,7 +238,7 @@ install_viber()
 
 install_teamviewer()
 {
-    if [[ ! $(dpkg -s teamviewer &> /dev/null) ]]; then
+    if [[ $(dpkg -s teamviewer &> /dev/null) ]]; then
         wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb -O teamviewer.deb
         sudo apt install -y $WORKDIR/teamviewer.deb
     fi

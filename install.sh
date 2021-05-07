@@ -205,8 +205,9 @@ install_minecraft()
 install_vscode()
 {
     if [[ ! $(dpkg -s code &> /dev/null) ]]; then
-    wget -O vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
-    sudo apt install -y $WORKDIR/vscode.deb
+        wget -O vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
+        sudo apt install -y $WORKDIR/vscode.deb
+    fi
 }
 
 install_discord()

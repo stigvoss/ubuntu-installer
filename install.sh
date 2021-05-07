@@ -102,7 +102,7 @@ add_typora_repo()
 
 add_microsoft_repo()
 {
-    if [[ ! $(dpkg -s packages-microsoft-prod &> /dev/null) ]]; then
+    if [[ $(dpkg -s packages-microsoft-prod &> /dev/null) ]]; then
         wget -q https://packages.microsoft.com/config/ubuntu/${DISTRIB_RELEASE}/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
         sudo dpkg -i packages-microsoft-prod.deb
 

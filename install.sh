@@ -92,18 +92,22 @@ add_signal_repo()
 
 add_typora_repo()
 {
-    wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
-    sudo add-apt-repository 'deb https://typora.io/linux ./'
+    if [[ $(grep -rhE -c ^deb.+typora /etc/apt/sources.list) == 0 ]]; then
+        wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
+        sudo add-apt-repository 'deb https://typora.io/linux ./'
+    fi
 }
 
 add_microsoft_repo()
 {
-    wget -q https://packages.microsoft.com/config/ubuntu/${DISTRIB_RELEASE}/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-    sudo dpkg -i packages-microsoft-prod.deb
+    if [[ ! $(dpkg -s packages-microsoft-prod &> /dev/null) ]]; then
+        wget -q https://packages.microsoft.com/config/ubuntu/${DISTRIB_RELEASE}/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+        sudo dpkg -i packages-microsoft-prod.deb
 
-    sudo add-apt-repository universe
+        sudo add-apt-repository universe
 
-    sudo apt install -y apt-transport-https
+        sudo apt install -y apt-transport-https
+    fi
 }
 
 replace_system_snap_packages()
@@ -192,46 +196,57 @@ remove_apt_packages()
 
 install_minecraft()
 {
-    wget https://launcher.mojang.com/download/Minecraft.deb
-    sudo apt install -y $WORKDIR/Minecraft.deb
+    if [[ ! $(dpkg -s minecraft-launcher &> /dev/null) ]]; then
+        wget https://launcher.mojang.com/download/Minecraft.deb
+        sudo apt install -y $WORKDIR/Minecraft.deb
+    fi
 }
 
 install_vscode()
 {
+    if [[ ! $(dpkg -s code &> /dev/null) ]]; then
     wget -O vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
     sudo apt install -y $WORKDIR/vscode.deb
 }
 
 install_discord()
 {
-    wget https://dl.discordapp.net/apps/linux/0.0.14/discord-0.0.14.deb -O discord.deb
-    sudo apt install -y $WORKDIR/discord.deb
+    if [[ ! $(dpkg -s discord &> /dev/null) ]]; then
+        wget https://dl.discordapp.net/apps/linux/0.0.14/discord-0.0.14.deb -O discord.deb
+        sudo apt install -y $WORKDIR/discord.deb
+    fi
 }
-
+teamviewer
 install_viber()
 {
-    wget https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb
-    if [[ $(apt-cache search "^libssl1.0.0$") ]]; then
-        sudo apt install -y $WORKDIR/viber.deb
-    elif [[ $(apt-cache search "^libssl1.1$") ]]; then
-        dpkg-deb -x viber.deb viber
-        dpkg-deb --control viber.deb viber/DEBIAN
-        sed -i -e 's/libssl1.0.0/libssl1.1/g' viber/DEBIAN/control
-        dpkg -b viber viber-with-libssl1.1.deb
-        sudo apt install $WORKDIR/viber-with-libssl1.1.deb
+    if [[ ! $(dpkg -s viber &> /dev/null) ]]; then
+        wget https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb
+        if [[ $(apt-cache search "^libssl1.0.0$") ]]; then
+            sudo apt install -y $WORKDIR/viber.deb
+        elif [[ $(apt-cache search "^libssl1.1$") ]]; then
+            dpkg-deb -x viber.deb viber
+            dpkg-deb --control viber.deb viber/DEBIAN
+            sed -i -e 's/libssl1.0.0/libssl1.1/g' viber/DEBIAN/control
+            dpkg -b viber viber-with-libssl1.1.deb
+            sudo apt install $WORKDIR/viber-with-libssl1.1.deb
+        fi
     fi
 }
 
 install_teamviewer()
 {
-    wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb -O teamviewer.deb
-    sudo apt install -y $WORKDIR/teamviewer.deb
+    if [[ ! $(dpkg -s teamviewer &> /dev/null) ]]; then
+        wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb -O teamviewer.deb
+        sudo apt install -y $WORKDIR/teamviewer.deb
+    fi
 }
 
 install_tresorit()
 {
-    wget https://installerstorage.blob.core.windows.net/public/install/tresorit_installer.run
-    sh $WORKDIR/tresorit_installer.run
+    if [[ ! -e ~/.local/share/tresorit/tresorit ]]; then
+        wget https://installerstorage.blob.core.windows.net/public/install/tresorit_installer.run
+        sh $WORKDIR/tresorit_installer.run
+    fi
 }
 
 install_jetbrains_toolbox()
@@ -250,19 +265,20 @@ install_typora_themes()
     wget https://github.com/troennes/quartz-theme-typora/archive/master.zip
     unzip master.zip
 
-    mv $WORKDIR/quartz-theme-typora-master/theme/*  ~/.config/Typora/themes/
+    mv -f $WORKDIR/quartz-theme-typora-master/theme/*  ~/.config/Typora/themes/
 }
 
 install_plexamp()
-{
-    wget https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.4.4.AppImage
-    mv Plexamp-3.4.4.AppImage ~/plexamp.AppImage
-    chmod +x ~/plexamp.AppImage
+{   
+    if [[ ! -e ~/plexamp.AppImage ]]; then
+        wget https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.4.4.AppImage
+        mv Plexamp-3.4.4.AppImage ~/plexamp.AppImage
+        chmod +x ~/plexamp.AppImage
 
-    mkdir -p ~/.icons/plexamp/
-    wget https://plexamp.com/img/plexamp.svg -O ~/.icons/plexamp/plexamp.svg
+        mkdir -p ~/.icons/plexamp/
+        wget https://plexamp.com/img/plexamp.svg -O ~/.icons/plexamp/plexamp.svg
 
-    cat >> ~/.local/share/applications/Plexamp.desktop << EOL
+        cat >> ~/.local/share/applications/Plexamp.desktop << EOL
 [Desktop Entry]
 Type=Application
 Name=Plexamp
@@ -274,6 +290,7 @@ Terminal=false
 Categories=Sound;\s;Audio;
 MimeType=application/x-iso9660-appimage;
 EOL
+    fi
 }
 
 install_extensions() {
@@ -354,5 +371,7 @@ install_dotbash()
     mv $WORKDIR/dotconfig ~
     bash ~/dotconfig/install.sh
 }
+
+
 
 install

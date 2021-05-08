@@ -267,8 +267,12 @@ install_typora_themes()
 
     wget https://github.com/troennes/quartz-theme-typora/archive/master.zip
     unzip -o master.zip
+    
+    if [[ -e ~/.config/Typora/themes/quartz ]]; then
+        rm -rf ~/.config/Typora/themes/quartz
+    fi
 
-    mv -f $WORKDIR/quartz-theme-typora-master/theme/*  ~/.config/Typora/themes/
+    mv -f $WORKDIR/quartz-theme-typora-master/theme/quartz  ~/.config/Typora/themes/
 }
 
 install_plexamp()

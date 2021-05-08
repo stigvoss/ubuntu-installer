@@ -199,7 +199,7 @@ remove_apt_packages()
 install_minecraft()
 {
     if [[ $(dpkg -s minecraft-launcher &> /dev/null) ]]; then
-        wget https://launcher.mojang.com/download/Minecraft.deb
+        wget https://launcher.mojang.com/download/Minecraft.deb -O $WORKDIR/Minecraft.deb
         sudo apt install -y $WORKDIR/Minecraft.deb
     fi
 }
@@ -207,7 +207,7 @@ install_minecraft()
 install_vscode()
 {
     if [[ $(dpkg -s code &> /dev/null) ]]; then
-        wget -O vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
+        wget -O $WORKDIR/vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
         sudo apt install -y $WORKDIR/vscode.deb
     fi
 }
@@ -215,7 +215,7 @@ install_vscode()
 install_discord()
 {
     if [[ $(dpkg -s discord &> /dev/null) ]]; then
-        wget https://dl.discordapp.net/apps/linux/0.0.14/discord-0.0.14.deb -O discord.deb
+        wget https://dl.discordapp.net/apps/linux/0.0.14/discord-0.0.14.deb -O $WORKDIR/discord.deb
         sudo apt install -y $WORKDIR/discord.deb
     fi
 }
@@ -223,11 +223,11 @@ install_discord()
 install_viber()
 {
     if [[ $(dpkg -s viber &> /dev/null) ]]; then
-        wget https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb
+        wget https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb -O $WORKDIR/viber.deb
         if [[ $(apt-cache search "^libssl1.0.0$") ]]; then
             sudo apt install -y $WORKDIR/viber.deb
         elif [[ $(apt-cache search "^libssl1.1$") ]]; then
-            dpkg-deb -x viber.deb viber
+            dpkg-deb -x $WORKDIR/viber.deb viber
             dpkg-deb --control viber.deb viber/DEBIAN
             sed -i -e 's/libssl1.0.0/libssl1.1/g' viber/DEBIAN/control
             dpkg -b viber viber-with-libssl1.1.deb
@@ -265,8 +265,8 @@ install_typora_themes()
         mkdir -p ~/.config/Typora/themes/
     fi
 
-    wget -O master.zip https://github.com/troennes/quartz-theme-typora/archive/master.zip
-    unzip -o master.zip
+    wget -O $WORKDIR/master.zip https://github.com/troennes/quartz-theme-typora/archive/master.zip
+    unzip -o $WORKDIR/master.zip
     
     if [[ -e ~/.config/Typora/themes/quartz ]]; then
         rm -rf ~/.config/Typora/themes/quartz

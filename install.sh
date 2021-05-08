@@ -247,7 +247,7 @@ install_teamviewer()
 install_tresorit()
 {
     if [[ ! -e ~/.local/share/tresorit/tresorit ]]; then
-        wget https://installerstorage.blob.core.windows.net/public/install/tresorit_installer.run -O tresorit_installer.sh
+        wget https://installerstorage.blob.core.windows.net/public/install/tresorit_installer.run -O tresorit_installer.run
         sh $WORKDIR/tresorit_installer.run
     fi
 }

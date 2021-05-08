@@ -318,8 +318,10 @@ install_extensions() {
         )
 
         for extension_uuid in ${EXTENSIONS[@]}; do
-            install_gnome_extension $extension_uuid
-            enable_gnome_extension $extension_uuid
+            if [[ $(gnome-extensions list | grep caffeine@patapon.info -c) == 0 ]]; then
+                install_gnome_extension $extension_uuid
+                enable_gnome_extension $extension_uuid
+            fi
         done
     fi    
 }

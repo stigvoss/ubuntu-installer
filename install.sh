@@ -318,10 +318,8 @@ install_extensions() {
         )
 
         for extension_uuid in ${EXTENSIONS[@]}; do
-            if [[ $(gnome-extensions list | grep caffeine@patapon.info -c) == 0 ]]; then
                 install_gnome_extension $extension_uuid
                 enable_gnome_extension $extension_uuid
-            fi
         done
     fi    
 }
@@ -333,7 +331,7 @@ install_gnome_extension()
     wget -qO $WORKDIR/$EXTENSION_UUID.zip https://extensions.gnome.org/download-extension/$EXTENSION_UUID.shell-extension.zip?shell_version=$GDM_VERSION
 
     if [[ -x "$(command -v gnome-extensions)" ]]; then
-        gnome-extensions install $WORKDIR/$EXTENSION_UUID.zip
+        gnome-extensions install -f $WORKDIR/$EXTENSION_UUID.zip
     else
         if [[ ! -e ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID ]]; then
             mkdir -p ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID

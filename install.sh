@@ -254,8 +254,8 @@ install_tresorit()
 
 install_jetbrains_toolbox()
 {
-    wget -cO jetbrains-toolbox.tar.gz "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA"
-    tar -xzf jetbrains-toolbox.tar.gz
+    wget -cO $WORKDIR/jetbrains-toolbox.tar.gz "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA"
+    tar -xzf $WORKDIR/jetbrains-toolbox.tar.gz
     $WORKDIR/jetbrains-toolbox-*/jetbrains-toolbox
 }
 

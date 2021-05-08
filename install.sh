@@ -339,7 +339,9 @@ install_gnome_extension()
         fi
     fi
 
-    rm $WORKDIR/$EXTENSION_UUID.zip
+    if [[ -e $WORKDIR/$EXTENSION_UUID.zip ]]; then
+        rm $WORKDIR/$EXTENSION_UUID.zip
+    fi
 }
 
 enable_gnome_extension()

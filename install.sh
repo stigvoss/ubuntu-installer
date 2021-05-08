@@ -266,7 +266,7 @@ install_typora_themes()
     fi
 
     wget https://github.com/troennes/quartz-theme-typora/archive/master.zip
-    unzip master.zip
+    unzip -o master.zip
 
     mv -f $WORKDIR/quartz-theme-typora-master/theme/*  ~/.config/Typora/themes/
 }
@@ -331,7 +331,7 @@ install_gnome_extension()
     else
         if [[ ! -e ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID ]]; then
             mkdir -p ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID
-            unzip -n $WORKDIR/$EXTENSION_UUID.zip -d ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID
+            unzip -o $WORKDIR/$EXTENSION_UUID.zip -d ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID
         fi
     fi
 

@@ -366,7 +366,7 @@ configure_extensions()
     git clone https://github.com/stigvoss/ubuntu-installer.git
     dconf load /org/gnome/shell/extensions/dash-to-panel/ < $WORKDIR/ubuntu-installer/configurations/dash-to-panel.conf
     dconf load /org/gnome/shell/extensions/lockkeys/ < $WORKDIR/ubuntu-installer/configurations/lockkeys.conf
-    dconf load /org/gnome/shell/extensions/clock_override/ < $WORKDIR/ubuntu-installer/configurations/lock_override.conf
+    dconf load /org/gnome/shell/extensions/clock_override/ < $WORKDIR/ubuntu-installer/configurations/clock_override.conf
     dconf load /org/gnome/shell/extensions/panel-osd/ < $WORKDIR/ubuntu-installer/configurations/panel-osd.conf
     dconf load /org/gnome/settings-daemon/plugins/media-keys/ < $WORKDIR/ubuntu-installer/configurations/media-keys.conf
     dconf write /org/gnome/shell/favorite-apps "$(cat $WORKDIR/ubuntu-installer/configurations/favorite-apps.conf)"

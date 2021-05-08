@@ -247,7 +247,7 @@ install_teamviewer()
 install_tresorit()
 {
     if [[ ! -e ~/.local/share/tresorit/tresorit ]]; then
-        wget https://installerstorage.blob.core.windows.net/public/install/tresorit_installer.run
+        wget https://installerstorage.blob.core.windows.net/public/install/tresorit_installer.run -O tresorit_installer.sh
         sh $WORKDIR/tresorit_installer.run
     fi
 }
@@ -265,7 +265,7 @@ install_typora_themes()
         mkdir -p ~/.config/Typora/themes/
     fi
 
-    wget https://github.com/troennes/quartz-theme-typora/archive/master.zip
+    wget -O master.zip https://github.com/troennes/quartz-theme-typora/archive/master.zip
     unzip -o master.zip
     
     if [[ -e ~/.config/Typora/themes/quartz ]]; then

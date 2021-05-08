@@ -275,10 +275,12 @@ install_plexamp()
 {   
     if [[ ! -e ~/plexamp.AppImage ]]; then
         wget https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.4.4.AppImage
-        mv Plexamp-3.4.4.AppImage ~/plexamp.AppImage
+        mv -f Plexamp-3.4.4.AppImage ~/plexamp.AppImage
         chmod +x ~/plexamp.AppImage
 
-        mkdir -p ~/.icons/plexamp/
+        if [[ ! -d ~/.icons/plexamp/ ]]; then
+            mkdir -p ~/.icons/plexamp/
+        fi
         wget https://plexamp.com/img/plexamp.svg -O ~/.icons/plexamp/plexamp.svg
 
         cat >> ~/.local/share/applications/Plexamp.desktop << EOL
@@ -327,8 +329,10 @@ install_gnome_extension()
     if [[ -x "$(command -v gnome-extensions)" ]]; then
         gnome-extensions install $WORKDIR/$EXTENSION_UUID.zip
     else
-        mkdir -p ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID
-        unzip -n $WORKDIR/$EXTENSION_UUID.zip -d ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID
+        if [[ ! -e ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID ]]; then
+            mkdir -p ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID
+            unzip -n $WORKDIR/$EXTENSION_UUID.zip -d ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID
+        fi
     fi
 
     rm $WORKDIR/$EXTENSION_UUID.zip
@@ -362,7 +366,7 @@ configure_extensions()
     git clone https://github.com/stigvoss/ubuntu-installer.git
     dconf load /org/gnome/shell/extensions/dash-to-panel/ < $WORKDIR/ubuntu-installer/configurations/dash-to-panel.conf
     dconf load /org/gnome/shell/extensions/lockkeys/ < $WORKDIR/ubuntu-installer/configurations/lockkeys.conf
-    dconf load /org/gnome/shell/extensions/clock_override/ < $WORKDIR/ubuntu-installer/cconfigurations/lock_override.conf
+    dconf load /org/gnome/shell/extensions/clock_override/ < $WORKDIR/ubuntu-installer/configurations/lock_override.conf
     dconf load /org/gnome/shell/extensions/panel-osd/ < $WORKDIR/ubuntu-installer/configurations/panel-osd.conf
     dconf load /org/gnome/settings-daemon/plugins/media-keys/ < $WORKDIR/ubuntu-installer/configurations/media-keys.conf
     dconf write /org/gnome/shell/favorite-apps "$(cat $WORKDIR/ubuntu-installer/configurations/favorite-apps.conf)"
@@ -374,7 +378,5 @@ install_dotbash()
     mv $WORKDIR/dotconfig ~
     bash ~/dotconfig/install.sh
 }
-
-
 
 install

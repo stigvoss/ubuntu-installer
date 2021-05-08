@@ -199,7 +199,7 @@ remove_apt_packages()
 install_minecraft()
 {
     cd $WORKDIR
-    
+
     if [[ $(dpkg -s minecraft-launcher &> /dev/null) ]]; then
         wget https://launcher.mojang.com/download/Minecraft.deb -O $WORKDIR/Minecraft.deb
         sudo apt install -y $WORKDIR/Minecraft.deb
@@ -402,12 +402,11 @@ configure_extensions()
 
 install_dotbash()
 {
-    cd ~
-
     if [[ -e ~/dotconfig ]]; then
         cd ~/dotconfig/
         git pull
     else
+        cd ~
         git clone https://github.com/stigvoss/dotconfig.git
     fi
 

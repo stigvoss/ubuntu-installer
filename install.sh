@@ -198,6 +198,8 @@ remove_apt_packages()
 
 install_minecraft()
 {
+    cd $WORKDIR
+    
     if [[ $(dpkg -s minecraft-launcher &> /dev/null) ]]; then
         wget https://launcher.mojang.com/download/Minecraft.deb -O $WORKDIR/Minecraft.deb
         sudo apt install -y $WORKDIR/Minecraft.deb
@@ -206,6 +208,8 @@ install_minecraft()
 
 install_vscode()
 {
+    cd $WORKDIR
+
     if [[ $(dpkg -s code &> /dev/null) ]]; then
         wget -O $WORKDIR/vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
         sudo apt install -y $WORKDIR/vscode.deb
@@ -214,6 +218,8 @@ install_vscode()
 
 install_discord()
 {
+    cd $WORKDIR
+
     if [[ $(dpkg -s discord &> /dev/null) ]]; then
         wget https://dl.discordapp.net/apps/linux/0.0.14/discord-0.0.14.deb -O $WORKDIR/discord.deb
         sudo apt install -y $WORKDIR/discord.deb
@@ -222,6 +228,8 @@ install_discord()
 
 install_viber()
 {
+    cd $WORKDIR
+
     if [[ $(dpkg -s viber &> /dev/null) ]]; then
         wget https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb -O $WORKDIR/viber.deb
         if [[ $(apt-cache search "^libssl1.0.0$") ]]; then
@@ -238,6 +246,8 @@ install_viber()
 
 install_teamviewer()
 {
+    cd $WORKDIR
+
     if [[ $(dpkg -s teamviewer &> /dev/null) ]]; then
         wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb -O teamviewer.deb
         sudo apt install -y $WORKDIR/teamviewer.deb
@@ -246,6 +256,8 @@ install_teamviewer()
 
 install_tresorit()
 {
+    cd $WORKDIR
+
     if [[ ! -e ~/.local/share/tresorit/tresorit ]]; then
         wget https://installerstorage.blob.core.windows.net/public/install/tresorit_installer.run -O $WORKDIR/tresorit_installer.run
         sh $WORKDIR/tresorit_installer.run
@@ -263,6 +275,8 @@ install_jetbrains_toolbox()
 
 install_typora_themes()
 {
+    cd $WORKDIR
+
     if [[ ! -e ~/.config/Typora/themes/ ]]; then
         mkdir -p ~/.config/Typora/themes/
     fi
@@ -388,8 +402,15 @@ configure_extensions()
 
 install_dotbash()
 {
-    git clone https://github.com/stigvoss/dotconfig.git
-    mv $WORKDIR/dotconfig ~
+    cd ~
+
+    if [[ -e ~/dotconfig ]]; then
+        cd ~/dotconfig/
+        git pull
+    else
+        git clone https://github.com/stigvoss/dotconfig.git
+    fi
+
     bash ~/dotconfig/install.sh
 }
 

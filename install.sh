@@ -77,6 +77,14 @@ init()
     fi
 
     . /etc/lsb-release
+
+    if [[ ! -e $WORKDIR/ubuntu-installer ]]; then
+        cd $WORKDIR
+        git clone https://github.com/stigvoss/ubuntu-installer.git
+    else
+        cd $WORKDIR/ubuntu-installer
+        git pull
+    fi
 }
 
 configure()
@@ -385,14 +393,6 @@ disable_gnome_extensions()
 
 configure_extensions()
 {
-    if [[ ! -e $WORKDIR/ubuntu-installer ]]; then
-        cd $WORKDIR
-        git clone https://github.com/stigvoss/ubuntu-installer.git
-    else
-        cd $WORKDIR/ubuntu-installer
-        git pull
-    fi
-
     dconf load /org/gnome/shell/extensions/dash-to-panel/ < $WORKDIR/ubuntu-installer/configurations/dash-to-panel.conf
     dconf load /org/gnome/shell/extensions/lockkeys/ < $WORKDIR/ubuntu-installer/configurations/lockkeys.conf
     dconf load /org/gnome/shell/extensions/clock_override/ < $WORKDIR/ubuntu-installer/configurations/clock_override.conf

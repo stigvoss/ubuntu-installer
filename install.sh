@@ -282,8 +282,8 @@ install_typora_themes()
         mkdir -p ~/.config/Typora/themes/
     fi
 
-    wget -O $WORKDIR/master.zip https://github.com/troennes/quartz-theme-typora/archive/master.zip
-    unzip -o $WORKDIR/master.zip
+    wget -O $WORKDIR/quartz-theme.zip https://github.com/troennes/quartz-theme-typora/archive/master.zip
+    unzip -o $WORKDIR/quartz-theme.zip
     
     if [[ -e ~/.config/Typora/themes/quartz ]]; then
         rm -rf ~/.config/Typora/themes/quartz
@@ -296,17 +296,12 @@ install_plexamp()
 {   
     plexamp_version=3.4.5
 
-    if [[ -e ~/plexamp.AppImage ]]; then
-        rm -f ~/plexamp.AppImage
-    fi
-
     wget https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-$plexamp_version.AppImage -O ~/plexamp.AppImage
     chmod +x ~/plexamp.AppImage
 
-    if [[ ! -d ~/.icons/plexamp/ ]]; then
-        mkdir -p ~/.icons/plexamp/
+    if [[ ! -e ~/.icons/plexamp/plexamp.svg ]]; then
+        wget -x https://plexamp.com/img/plexamp.svg -O ~/.icons/plexamp/plexamp.svg
     fi
-    wget https://plexamp.com/img/plexamp.svg -O ~/.icons/plexamp/plexamp.svg
 
     cat >> ~/.local/share/applications/Plexamp.desktop << EOL
 [Desktop Entry]

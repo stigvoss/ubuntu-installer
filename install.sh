@@ -294,12 +294,13 @@ install_typora_themes()
 
 install_plexamp()
 {   
+    plexamp_version=3.4.5
+
     if [[ -e ~/plexamp.AppImage ]]; then
         rm -f ~/plexamp.AppImage
     fi
 
-    wget https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.4.4.AppImage
-    mv -f Plexamp-3.4.5.AppImage ~/plexamp.AppImage
+    wget https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-$plexamp_version.AppImage -O ~/plexamp.AppImage
     chmod +x ~/plexamp.AppImage
 
     if [[ ! -d ~/.icons/plexamp/ ]]; then

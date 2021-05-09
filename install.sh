@@ -294,17 +294,20 @@ install_typora_themes()
 
 install_plexamp()
 {   
-    if [[ ! -e ~/plexamp.AppImage ]]; then
-        wget https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.4.4.AppImage
-        mv -f Plexamp-3.4.4.AppImage ~/plexamp.AppImage
-        chmod +x ~/plexamp.AppImage
+    if [[ -e ~/plexamp.AppImage ]]; then
+        rm -f ~/plexamp.AppImage
+    fi
 
-        if [[ ! -d ~/.icons/plexamp/ ]]; then
-            mkdir -p ~/.icons/plexamp/
-        fi
-        wget https://plexamp.com/img/plexamp.svg -O ~/.icons/plexamp/plexamp.svg
+    wget https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.4.4.AppImage
+    mv -f Plexamp-3.4.5.AppImage ~/plexamp.AppImage
+    chmod +x ~/plexamp.AppImage
 
-        cat >> ~/.local/share/applications/Plexamp.desktop << EOL
+    if [[ ! -d ~/.icons/plexamp/ ]]; then
+        mkdir -p ~/.icons/plexamp/
+    fi
+    wget https://plexamp.com/img/plexamp.svg -O ~/.icons/plexamp/plexamp.svg
+
+    cat >> ~/.local/share/applications/Plexamp.desktop << EOL
 [Desktop Entry]
 Type=Application
 Name=Plexamp
@@ -316,7 +319,6 @@ Terminal=false
 Categories=Sound;\s;Audio;
 MimeType=application/x-iso9660-appimage;
 EOL
-    fi
 }
 
 install_extensions() {

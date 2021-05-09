@@ -303,7 +303,8 @@ install_plexamp()
         wget -x https://plexamp.com/img/plexamp.svg -O ~/.icons/plexamp/plexamp.svg
     fi
 
-    cat >> ~/.local/share/applications/Plexamp.desktop << EOL
+    if [[ ! -e ~/.local/share/applications/Plexamp.desktop ]]; then
+        cat >> ~/.local/share/applications/Plexamp.desktop << EOL
 [Desktop Entry]
 Type=Application
 Name=Plexamp
@@ -315,6 +316,7 @@ Terminal=false
 Categories=Sound;\s;Audio;
 MimeType=application/x-iso9660-appimage;
 EOL
+    fi
 }
 
 install_extensions() {

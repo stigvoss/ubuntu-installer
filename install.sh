@@ -186,7 +186,8 @@ install_apt_packages()
         gnome-weather \
         cryptsetup \
         wireguard-dkms \
-	neovim
+	    neovim \
+        solaar
 }
 
 remove_apt_packages()

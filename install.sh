@@ -230,7 +230,7 @@ install_discord()
     cd $WORKDIR
 
     if [[ $(dpkg -s discord &> /dev/null) ]]; then
-        wget https://dl.discordapp.net/apps/linux/0.0.14/discord-0.0.14.deb -O $WORKDIR/discord.deb
+        wget https://dl.discordapp.net/apps/linux/0.0.15/discord-0.0.15.deb -O $WORKDIR/discord.deb
         sudo apt install -y $WORKDIR/discord.deb
     fi
 }

@@ -90,6 +90,7 @@ init()
 configure()
 {
     sudo update-alternatives --set editor /usr/bin/nvim
+    echo "export QT_QPA_PLATFORMTHEME=gtk2" >> ~/.profile
 }
 
 add_signal_repo()

@@ -304,7 +304,7 @@ install_typora_themes()
 
 install_plexamp()
 {   
-    plexamp_version=3.4.5
+    plexamp_version=3.8.2
 
     wget https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-$plexamp_version.AppImage -O ~/plexamp.AppImage
     chmod +x ~/plexamp.AppImage

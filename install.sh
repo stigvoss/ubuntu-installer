@@ -306,24 +306,25 @@ install_plexamp()
 {   
     plexamp_version=3.8.2
 
-    wget https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-$plexamp_version.AppImage -O ~/plexamp.AppImage
-    chmod +x ~/plexamp.AppImage
+    sudo mkdir -p /opt/Plexamp
 
-    if [[ ! -e ~/.icons/plexamp/plexamp.svg ]]; then
-        wget -x https://plexamp.com/img/plexamp.svg -O ~/.icons/plexamp/plexamp.svg
+    sudo wget -x https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-$plexamp_version.AppImage -O /opt/Plexamp/plexamp.AppImage
+    sudo chmod +x /opt/Plexamp/plexamp.AppImage
+
+    if [[ ! -e /opt/Plexamp/plexamp.svg ]]; then
+        sudo wget -x https://plexamp.com/img/plexamp.svg -O /opt/Plexamp/plexamp.svg
     fi
 
     if [[ ! -e ~/.local/share/applications/Plexamp.desktop ]]; then
-        cat >> ~/.local/share/applications/Plexamp.desktop << EOL
+        cat > ~/.local/share/applications/Plexamp.desktop << EOL
 [Desktop Entry]
 Type=Application
 Name=Plexamp
 GenericName=Plexamp
 Comment=A beautiful Plex music player for audiophiles, curators, and hipsters
-Exec=~/plexamp.AppImage %U
-Icon=~/.icons/plexamp/plexamp.svg
+Exec=/opt/Plexamp/plexamp.AppImage %U
+Icon=/opt/Plexamp/plexamp.svg
 Terminal=false
-Categories=Sound;\s;Audio;
 MimeType=application/x-iso9660-appimage;
 EOL
     fi

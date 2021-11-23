@@ -304,7 +304,7 @@ install_typora_themes()
 
 install_plexamp()
 {   
-    plexamp_version=3.8.2
+    plexamp_version=$(curl -s https://plexamp.plex.tv/plexamp.plex.tv/desktop/latest.yml | head -n 1 | sed "s/version: //g")
 
     sudo mkdir -p /opt/Plexamp
 
